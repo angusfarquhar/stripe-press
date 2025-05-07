@@ -1,1 +1,4 @@
 - the original implementation had all the books' info hardcoded in the index.html file which is less than ideal. instead we want to store all the books in a db (or pretend to ;)
+- card styling on the last card on medium screen made it longer at the bottom than the others
+- add increasing the knowledge of the internet to the main page
+- I added security to the payment intents endpoint buy only passing in the product instead of the price
