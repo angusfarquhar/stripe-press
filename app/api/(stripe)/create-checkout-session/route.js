@@ -15,6 +15,6 @@ export async function POST(request) {
   });
   return NextResponse.json(
     { clientSecret: session.client_secret },
-    { status: 200 }
+    { status: 200 },
   );
 }

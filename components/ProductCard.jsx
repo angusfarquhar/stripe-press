@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }) {
-  const router = useRouter()
+  const router = useRouter();
 
   const toDollars = (cents) => {
     return `$${(cents / 100).toFixed(2)}`;
   };
 
   const handleBuyNow = () => {
-    router.push(`/checkout?productId=${product.id}`)
-  }
+    router.push(`/checkout?productId=${product.id}`);
+  };
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -22,7 +22,10 @@ export default function ProductCard({ product }) {
         <p className="text-gray-700 text-base">{toDollars(product.amount)}</p>
       </div>
       <div className="px-6 pt-4 pb-4">
-        <button className="bg-[#5167FC] hover:bg-[#5167CA] text-white  font-bold py-2 px-4 rounded shadow-lg hover:cursor-pointer" onClick={handleBuyNow}>
+        <button
+          className="bg-[#5167FC] hover:bg-[#5167CA] text-white  font-bold py-2 px-4 rounded shadow-lg hover:cursor-pointer"
+          onClick={handleBuyNow}
+        >
           Buy Now
         </button>
       </div>
