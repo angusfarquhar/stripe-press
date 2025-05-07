@@ -1,0 +1,1 @@
+- the original implementation had all the books' info hardcoded in the index.html file which is less than ideal. instead we want to store all the books in a db (or pretend to ;)
