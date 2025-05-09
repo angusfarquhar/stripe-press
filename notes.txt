@@ -2,3 +2,4 @@
 - card styling on the last card on medium screen made it longer at the bottom than the others
 - add increasing the knowledge of the internet to the main page
 - I added security to the payment intents endpoint buy only passing in the product instead of the price
+- I went to the dashboard and added afterpay as a payment option
