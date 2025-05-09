@@ -1,6 +1,11 @@
 "use client";
 
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+import {
+  Elements,
+  PaymentElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,6 +13,71 @@ import { useEffect, useState } from "react";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
 );
+
+function PaymentForm({ amount }) {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js hasn't yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    setIsLoading(true);
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: "http://localhost:3000/success",
+      },
+    });
+  };
+
+  const paymentElementOptions = {
+    layout: "accordion",
+  };
+
+  return (
+    <form id="payment-form" className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <div>
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Email address
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="example@email.com"
+          required
+        />
+      </div>
+
+      <div className="mt-4 p-4 border border-gray-300 rounded-md shadow-sm">
+      <PaymentElement id="payment-element" options={paymentElementOptions} />
+      </div>
+
+      <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className="w-full bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white font-semibold py-3 rounded-md shadow transition"
+      >
+        Pay ${(amount / 100).toFixed(2)}
+      </button>
+    </form>
+  );
+}
 
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
@@ -38,11 +108,11 @@ export default function CheckoutPage() {
     if (productId) createPaymentIntent();
   }, [productId]);
 
-  if (!clientSecret) return <div>Loading...</div>;
-
   const appearance = {
     theme: "stripe",
   };
+
+  if (!clientSecret) return <div>Loading...</div>;
 
   return (
     <Elements stripe={stripePromise} options={{ appearance, clientSecret }}>
@@ -59,42 +129,13 @@ export default function CheckoutPage() {
                 Total due: <span>${(product.amount / 100).toFixed(2)}</span>
               </p>
             </div>
+            <PaymentForm amount={product.amount} />
 
             <hr className="my-6 border-gray-300" />
             <p className="text-blue-600 font-medium text-lg">
               Total due: <span>${(product.amount / 100).toFixed(2)}</span>
             </p>
           </div>
-
-          <form name="payment-form" className="mt-8 space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="example@email.com"
-                required
-              />
-            </div>
-
-            <div className="mt-4 p-4 border border-dashed border-gray-300 rounded text-center text-gray-500 text-sm">
-              <PaymentElement />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md shadow transition"
-            >
-              Pay ${(product.amount / 100).toFixed(2)}
-            </button>
-          </form>
         </div>
       </div>
     </Elements>
