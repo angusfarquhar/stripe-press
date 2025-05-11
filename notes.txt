@@ -3,3 +3,27 @@
 - add increasing the knowledge of the internet to the main page
 - I added security to the payment intents endpoint buy only passing in the product instead of the price
 - I went to the dashboard and added afterpay as a payment option
+- change the checkout page to have uri encoded productIds and quantities instead of just a single productId
+- search products api will take an object that you can search more fields on
+- used stack overflow for the stripe animation
+- there's a potential bug in the stripe docs, I don't think you can import server code to a page (success page)
+- to extend instead of linking to a payment failed page I could just redirect to the checkout page again (and use a query param for payment failed status?)
+- I need to add idempotency key to payment
+- need to make sure i update the favicon
+
+
+IMPROVEMENTS
+- add caching to APIs
+
+
+HOW TO SET UP ON NEW COMPUTER
+
+pre-requisutes:
+- install homebrew
+- install node
+
+- clone the repo
+- run npm install
+- copy your stripe secret and publishable key from stripe dashboard (see docs for how to do that)
+    and add it to a .env file at the root directory of the project
+- 
