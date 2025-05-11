@@ -21,6 +21,7 @@ HOW TO SET UP ON NEW COMPUTER
 pre-requisutes:
 - install homebrew
 - install node
+- install tailwind
 
 - clone the repo
 - run npm install
