@@ -4,7 +4,7 @@
 
 This application serves as a demo for integrating **Stripe Elements** into a custom checkout flow, specifically showcasing the **Payment Element**.
 
-The frontend and backend of the application is built on [Next.js](https://nextjs.org/), styled using [Tailwind CSS](https://tailwindcss.com/), and uses [Stripe’s Node SDK](https://github.com/stripe/stripe-node) to handle secure payment processing.
+The frontend and backend of the application is built on [Next.js](https://nextjs.org/), styled using [Tailwind CSS](https://tailwindcss.com/), and uses [Stripe’s Node SDK](https://github.com/stripe/stripe-node) to handle requests made to Stripe's Products, Prices and Payment Intents APIs.
 
 ---
 
@@ -69,7 +69,7 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🧾 Features
 
-- View products using Stripe's Product and Price APIs.
+- View products using Stripe's Products and Prices APIs.
 - Create Payment Intent using Stripe's `idempotency_key` for safe retryable requests.
 - Checkout with Stripe Elements (Payment Element).
 - View payment status using Stripe Payment Intents API.
