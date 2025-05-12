@@ -72,7 +72,7 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 - View products using Stripe's Products and Prices APIs.
 - Create Payment Intent using Stripe's `idempotency_key` for safe retryable requests.
-- Checkout with Stripe Elements (Payment Element).
+- Checkout with Stripe Elements (Address and Payment Elements).
 - View payment status using Stripe Payment Intents API.
 
 ---
