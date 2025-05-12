@@ -146,8 +146,7 @@ function ProductDiv({ product }) {
 
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
-  // TODO: this is just a single productId now but will need to change
-  // to an encoded uri of multiple products and quanities or use a cart api
+  // the 'cart' param is an encoded uri of multiple products and quanities
   const cartParam = searchParams.get("cart");
 
   const [clientSecret, setClientSecret] = useState(null);

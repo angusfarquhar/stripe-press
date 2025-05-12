@@ -24,7 +24,6 @@ export async function POST(request) {
     );
   }
 
-  // if request array is empty return empty array back
   if (Array.isArray(productIds).length === 0) {
     return NextResponse.json([], { status: 200 });
   }

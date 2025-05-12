@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // cart is a an array of products and quantities [{product, quantiity}]
-let cart = []; 
+let cart = [];
 
 /**
  * GET /api/v1/carts
@@ -15,7 +15,7 @@ export async function GET() {
 
 /**
  * POST /api/v1/carts
- * adds a product and associated quantiity to the cart.
+ * adds a product and associated quantity to the cart.
  * It returns the updated cart as a response.
  * @param { product, quantity } request
  * @returns { cart }
