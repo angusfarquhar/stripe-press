@@ -2,9 +2,18 @@
 
 import { useRouter } from "next/navigation";
 import { toDollars } from "../lib/utils";
+import { API_ROUTES } from "../lib/routes";
 
 export default function ProductCard({ product }) {
   const router = useRouter();
+
+  const handleAddToCart = async () => {
+    await fetch(API_ROUTES.CARTS.BASE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ product: product, quantity: 1 }),
+    });
+  };
 
   const handleBuyNow = () => {
     router.push(`/checkout?productId=${product.id}`);
@@ -45,7 +54,10 @@ export default function ProductCard({ product }) {
         </p>
 
         <form className="mt-4 flex gap-4">
-          <button className="block w-full rounded-sm bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105 hover:cursor-pointer">
+          <button
+            onClick={handleAddToCart}
+            className="block w-full rounded-sm bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105 hover:cursor-pointer"
+          >
             Add to Cart
           </button>
 

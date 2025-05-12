@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 // request body: { items: [{ productId, quantity }], idempotencyKey: string }
 export async function POST(request) {
   const { items, idempotencyKey } = await request.json();
-  console.log("Idempotency Key:", idempotencyKey); // Debugging log
 
   if (!Array.isArray(items)) {
     return NextResponse.json(

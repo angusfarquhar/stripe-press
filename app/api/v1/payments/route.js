@@ -19,6 +19,7 @@ export async function POST(request) {
         id: paymentIntent.id,
         amount: paymentIntent.amount,
         amount_received: paymentIntent.amount_received,
+        currency: paymentIntent.currency,
         status: paymentIntent.status,
       },
       { status: 200 },

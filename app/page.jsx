@@ -5,6 +5,15 @@ export default async function Home() {
   const productsResponse = await fetch(API_ROUTES.PRODUCTS.BASE);
   const products = await productsResponse.json();
 
+  if (!products)
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-10">
+        <div className="flex items-center">
+          <LoadingSpinnerIcon />
+        </div>
+      </div>
+    );
+
   return (
     <div className="bg-gray-100 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

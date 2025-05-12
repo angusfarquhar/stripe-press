@@ -8,6 +8,7 @@ import {
   PaymentElement,
   useStripe,
   useElements,
+  AddressElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
@@ -80,6 +81,21 @@ function PaymentForm({ amount, currency }) {
           htmlFor="payment-element"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
+          Shipping details
+        </label>
+        <div className="p-4 border border-gray-300 rounded-md">
+          <AddressElement
+            id={"address-element"}
+            options={{ mode: "shipping" }}
+          />
+        </div>
+      </div>
+
+      <div className="rounded-md">
+        <label
+          htmlFor="payment-element"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Payment details
         </label>
         <div className="p-4 border border-gray-300 rounded-md">
@@ -102,6 +118,29 @@ function PaymentForm({ amount, currency }) {
           : `Pay ${toDollars(amount)} ${currency.toUpperCase()}`}
       </button>
     </form>
+  );
+}
+
+function ProductDiv({ product }) {
+  return (
+    <div className="grid grid-cols-3 gap-4 mt-4 border shadow border-gray-300 rounded p-4 items-center">
+      {product.image && (
+        <div className="col-span-1">
+          <img
+            className="rounded-xl w-full h-auto object-cover"
+            src={product.image}
+            alt={product.title}
+          />
+        </div>
+      )}
+      <div className="col-span-2 flex flex-col justify-center">
+        <p className="text-sm text-gray-800">{product.title}</p>
+        <p className="text-sm text-gray-600">Quantity: {product.quantity}</p>
+        <p className="text-[#5167FC] text-sm">
+          Price: <span>{toDollars(product.price)}</span>
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -151,9 +190,10 @@ export default function CheckoutPage() {
     variables: {
       fontFamily: ' "Gill Sans", sans-serif',
       fontLineHeight: "1.5",
-      borderRadius: "10px",
+      borderRadius: "5px",
       colorBackground: "#F6F8FA",
       accessibleColorOnColorPrimary: "#262626",
+      colorPrimary: "#5167FC",
     },
     rules: {
       ".Block": {
@@ -187,29 +227,6 @@ export default function CheckoutPage() {
       },
     },
   };
-
-  function ProductDiv({ product }) {
-    return (
-      <div className="grid grid-cols-3 gap-4 mt-4 border shadow border-gray-300 rounded p-4 items-center">
-        {product.image && (
-          <div className="col-span-1">
-            <img
-              className="rounded-xl w-full h-auto object-cover"
-              src={product.image}
-              alt={product.title}
-            />
-          </div>
-        )}
-        <div className="col-span-2 flex flex-col justify-center">
-          <p className="text-sm text-gray-800">{product.title}</p>
-          <p className="text-sm text-gray-600">Quantity: {product.quantity}</p>
-          <p className="text-[#5167FC] text-sm">
-            Price: <span>{toDollars(product.price)}</span>
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   if (!clientSecret)
     return (

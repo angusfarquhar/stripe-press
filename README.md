@@ -51,6 +51,7 @@ Before you begin, make sure you have the following tools installed:
      ```
      STRIPE_SECRET_KEY=your_secret_key_here
      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_publishable_key_here
+     NEXT_PUBLIC_BASE_URL = http://localhost:3000/api
      ```
 
 ---

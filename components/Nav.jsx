@@ -13,7 +13,7 @@ export default function Nav() {
         <div className="ml-auto">
           <div>
             <a
-              href="/api/cart"
+              href="/api/v1/carts"
               className="px-4 py-2 text-white bg-none rounded hover:bg-[#5167FC]"
             >
               View Cart

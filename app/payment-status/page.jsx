@@ -31,12 +31,6 @@ const STATUS_CONTENT_MAP = {
     message:
       "We are sorry, there was an error processing your payment. Please try again with a different payment method.",
   },
-  default: {
-    text: "Something went wrong.",
-    icon: <ErrorIcon />,
-    message:
-      "An unexpected error occurred during payment. Please try again later.",
-  },
 };
 
 export default function SuccessPage() {
@@ -99,22 +93,9 @@ export default function SuccessPage() {
               Amount Charged
             </h3>
             <p className="text-sm text-gray-500">
-              Amount Charged:{" "}
+              {paymentDetails?.currency.toUpperCase()}
               <span className="font-mono">
                 {toDollars(paymentDetails?.amount)}
-              </span>
-            </p>
-          </div>
-        )}
-        {paymentDetails?.amount_received && (
-          <div className="mb-6 border border-gray-200 rounded-md p-4 text-left">
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">
-              Amount Received
-            </h3>
-            <p className="text-sm text-gray-500">
-              Amount Received:{" "}
-              <span className="font-mono">
-                {toDollars(paymentDetails?.amount_received)}
               </span>
             </p>
           </div>
