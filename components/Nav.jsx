@@ -13,8 +13,8 @@ export default function Nav() {
         <div className="ml-auto">
           <div>
             <a
-              href="/api/v1/carts"
-              className="px-4 py-2 text-white bg-none rounded hover:bg-[#5167FC]"
+              href="/cart"
+              className="inline-block px-4 py-2 text-sm font-medium text-white border border-white rounded-md hover:bg-white hover:text-[#5167FC] transition duration-200 ease-in-out"
             >
               View Cart
             </a>

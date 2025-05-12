@@ -3,20 +3,30 @@
 import { useRouter } from "next/navigation";
 import { toDollars } from "../lib/utils";
 import { API_ROUTES } from "../lib/routes";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
   const router = useRouter();
 
+  const [added, setAdded] = useState(false);
+
   const handleAddToCart = async () => {
-    await fetch(API_ROUTES.CARTS.BASE, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product: product, quantity: 1 }),
-    });
+    try {
+      await fetch(API_ROUTES.CARTS.BASE, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product: product, quantity: 1 }),
+      });
+      setAdded(true);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleBuyNow = () => {
-    router.push(`/checkout?productId=${product.id}`);
+    const cart = [{ productId: product.id, quantity: 1 }];
+    const query = encodeURIComponent(JSON.stringify(cart));
+    router.push(`/checkout?cart=${query}`);
   };
 
   return (
@@ -58,7 +68,7 @@ export default function ProductCard({ product }) {
             onClick={handleAddToCart}
             className="block w-full rounded-sm bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105 hover:cursor-pointer"
           >
-            Add to Cart
+            {added ? "Added!" : "Add to Cart"}
           </button>
 
           <button

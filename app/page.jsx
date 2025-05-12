@@ -15,7 +15,7 @@ export default async function Home() {
     );
 
   return (
-    <div className="bg-gray-100 py-16">
+    <div className="bg-gray-100 py-16 min-h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-baseline sm:justify-between">
           <h1 className="text-2xl font-bold tracking-tight mx-auto text-left justify-center text-gray-800">

@@ -148,13 +148,21 @@ export default function CheckoutPage() {
   const searchParams = useSearchParams();
   // TODO: this is just a single productId now but will need to change
   // to an encoded uri of multiple products and quanities or use a cart api
-  const productId = searchParams.get("productId");
+  const cartParam = searchParams.get("cart");
 
   const [clientSecret, setClientSecret] = useState(null);
   const [products, setProducts] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
   const [currency, setCurrency] = useState(null);
   const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    if (cartParam) {
+      const parsedCart = JSON.parse(decodeURIComponent(cartParam));
+      setCart(parsedCart);
+    }
+  }, [cartParam]);
 
   useEffect(() => {
     const createCheckout = async () => {
@@ -168,7 +176,7 @@ export default function CheckoutPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            items: [{ productId: productId, quantity: 1 }],
+            items: cart,
             idempotencyKey: checkoutId,
           }),
         });
@@ -182,8 +190,8 @@ export default function CheckoutPage() {
         setError(err);
       }
     };
-    if (productId) createCheckout();
-  }, [productId]);
+    if (cart) createCheckout();
+  }, [cart]);
 
   const appearance = {
     theme: "flat",
