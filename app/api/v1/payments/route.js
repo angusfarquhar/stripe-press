@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import { stripe } from "../../../../lib/stripe";
 
+/**
+ * POST /api/v1/payments
+ * takes a paymentIntentId as input and returns PaymentIntent
+ * data from Stripe's Payment Intent API
+ * @param {paymentIntentId} request
+ * @returns {id, amount, amount_received, currency, status}
+ */
 export async function POST(request) {
   const { paymentIntentId } = await request.json();
 

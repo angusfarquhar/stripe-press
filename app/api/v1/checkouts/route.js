@@ -2,7 +2,13 @@ import { stripe } from "../../../../lib/stripe";
 import { getProductsByIds } from "../../../../lib/products";
 import { NextResponse } from "next/server";
 
-// request body: { items: [{ productId, quantity }], idempotencyKey: string }
+/**
+ * POST /api/v1/checkouts
+ * initialises a checkout sesion. It takes an idempotencyKey and an
+ * items array as input which includes productIds and quantities.
+ * @param { items: [{ productId, quantity }], idempotencyKey: string } request
+ * @returns {clientSecret, products, totalAmount, currency}
+ */
 export async function POST(request) {
   const { items, idempotencyKey } = await request.json();
 
