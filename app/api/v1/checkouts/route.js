@@ -19,6 +19,13 @@ export async function POST(request) {
     );
   }
 
+  if (items.length <= 0) {
+    return NextResponse.json(
+      { error: "Request must contain at least one item" },
+      { status: 400 },
+    );
+  }
+
   try {
     const productIds = items.map((item) => item.productId);
     const products = await getProductsByIds(productIds);

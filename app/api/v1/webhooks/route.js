@@ -14,7 +14,7 @@ export async function POST(req) {
     );
   } catch (err) {
     const errorMessage = err.message;
-    if (err) console.log(err);
+    if (err) console.error(err);
     console.log(`Error message: ${errorMessage}`);
     return NextResponse.json(
       { message: `Webhook Error: ${errorMessage}` },

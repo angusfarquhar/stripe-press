@@ -156,13 +156,26 @@ export default function CheckoutPage() {
   const [error, setError] = useState(null);
   const [cart, setCart] = useState([]);
 
+  // process page url cart param on page load
   useEffect(() => {
     if (cartParam) {
-      const parsedCart = JSON.parse(decodeURIComponent(cartParam));
-      setCart(parsedCart);
+      try {
+        // need to convert quantity to int as it was encoded as a string
+        const parsedCart = JSON.parse(decodeURIComponent(cartParam)).map(
+          (item) => ({
+            productId: item.productId,
+            quantity: parseInt(item.quantity, 10),
+          }),
+        );
+        setCart(parsedCart);
+      } catch (err) {
+        console.error("Failed to parse cart param:", err);
+        setError("Invalid cart data.");
+      }
     }
   }, [cartParam]);
 
+  // initialise checkout session on page load
   useEffect(() => {
     const createCheckout = async () => {
       try {
@@ -189,7 +202,7 @@ export default function CheckoutPage() {
         setError(err);
       }
     };
-    if (cart) createCheckout();
+    if (cart.length > 0) createCheckout();
   }, [cart]);
 
   const appearance = {

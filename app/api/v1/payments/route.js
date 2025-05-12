@@ -20,7 +20,6 @@ export async function POST(request) {
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-    console.log(paymentIntent);
     return NextResponse.json(
       {
         id: paymentIntent.id,
